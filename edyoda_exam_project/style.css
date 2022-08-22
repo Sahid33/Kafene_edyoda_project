@@ -1,0 +1,176 @@
+*{
+    box-sizing:border-box;
+    background-color: #F6F7FB;
+    font-family: "Poppins",sans-serif;
+}
+
+/* Navbar Styling Start */
+.Topbar_Topbar {
+    width: 100%;
+    
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-shadow: 0 2px 4px #ccc;
+    background-color: #fff;
+    height: 60px;
+    padding: 0 48px;
+    font-family: "Poppins", sans-serif;
+}
+
+.Topbar_Topbar,
+.Topbar_LogoWrapper {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    /* font-size: 24px; */
+    letter-spacing: -1px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, .8);
+
+}
+
+.Topbar_LogoWrapper img {
+    width: 24px;
+    height: 28px;
+    margin-right: 8px;
+    background-color: #fff;
+}
+
+
+nav {
+    display: flex;
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
+}
+
+nav a {
+    display: inline-block;
+    text-decoration: none;
+    color: rgba(0, 0, 0, .8);
+    padding: 24px 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .6px;
+    margin: 0 10px;
+    font-family: "Poppins", sans-serif;
+    background-color: #fff;
+}
+.Topbar_LogoWrapper{margin-right: 36px;
+    background-color: #fff;
+}
+
+/* Navbar Styling Ends */
+
+#logout {
+    position: absolute;
+    right: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #fff;
+  }
+
+  .maincontainer {
+    margin-top: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 8% 4%;
+  
+  }
+
+  .Homepageorders {
+    display: flex;
+    align-items: baseline;
+  }
+  #filters {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    margin: 6px 0;
+    cursor: pointer;
+  }
+
+  .Homepage_OrderTable {
+    width: 100%;
+  }
+  #filtertxt {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  label {
+    margin: 10px 0;
+  }
+
+  .Homepage_OrderTable td {
+    text-align: center;
+  }
+
+  .Topbar_BrandName{
+    background-color: #fff;
+  }
+
+  
+.table{
+  width: 100%;
+}
+.table th, table td{
+  text-align: left;
+  padding: 12px 24px;
+  background-color: #fff;
+  font-size: 14px;
+}
+.table tr{
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+
+}
+.table td{
+  background-color: #fff;
+  border-bottom: 4px solid #f6f7fb;
+}
+
+
+/* User page */
+
+
+.UserList_FilterWrapper {
+  width: 700px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.UserList_SearchBox {
+  width: calc(100% - 100px);
+  padding: 12px 24px;
+  font-size: 15px;
+  border: 0;
+  border-bottom: 2px solid #8c8c8c;
+  margin: 0 36px 0 0;
+  outline: none;
+  background-color: #FFFFFF;
+}
+
+
+.UserList_Button {
+  display: inline-block;
+  border-radius: 30px;
+  padding: 14px 36px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  background-color: #20b883;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+
+.UserList_SecondaryText {
+  color: #8c8c8c;
+}
+

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+      integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap"
+    rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+ 
+ 
+
+#Users {
+        color: #20b883;
+        border-bottom: 3px solid #20b883;
+      }
+
+    </style>
+    <title>Web App</title>
+  </head>
+
+  <body>
+    <div class="Topbar_Topbar">
+      <div class="Topbar_LogoWrapper">
+        <img src="./logo.58169365.png" alt="logo" />
+        <p class="Topbar_BrandName">Kafene</p>
+      </div>
+      <nav>
+        <a href="orders.html">Orders</a>
+        <a href="product.html">Products</a>
+        <a href="users.html" id="Users">Users</a>
+    </nav>
+      <p id="logout"  onclick="logOut()">Logout</p>
+    </div>
+
+    <div class="maincontainer">
+      <h1>Users</h1>
+
+      <form class="UserList_FilterWrapper">
+        <input
+          class="UserList_SearchBox"
+          type="search"
+          id="search-box"
+          placeholder="Search by Name"
+        /><input type="reset" onclick="getUsers()" class="UserList_Button" value="Reset" />
+      </form>
+
+      <div class="Homepageorders">
+     
+ 
+        <table class="Homepage_OrderTable">
+          <tr>
+            <th>ID</th>
+            <th>User Avatar</th>
+            <th>Full Name</th>
+            <th>DoB</th>
+            <th>Gender	</th>
+            <th>Current Location</th>
+          </tr>
+
+          <tbody id="mytabledata">
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+       let status = window.localStorage.getItem("loginStatus");
+       function logOut() {
+           window.localStorage.setItem("loginStatus", "false")
+           window.location.href = "index.html";
+       }
+      const getUsers = () => {
+        axios
+          .get("https://5fc1a1c9cb4d020016fe6b07.mockapi.io/api/v1/users")
+          .then(function (response) {
+            // handle success
+            var mydatas = response.data;
+            // console.log(mydatas);
+ 
+            console.log(mydatas); 
+     
+
+            $("#search-box").on("keyup", function () {
+              
+            let value = $(this).val()
+
+            console.log("The value Entered", value)
+
+            if (value.length<2) {
+
+               
+            alert("Please enter atleast 2 characters")
+                
+               
+           }
+
+            var data1 = searchTable(value, mydatas)
+
+            console.log("This is data1", data1)
+
+            buildTAbledata(data1);
+
+       
+          })
+
+
+      
+          buildTAbledata(mydatas)
+       
+          function searchTable(value, mydatas) {
+            var filtereddata = []
+
+            for (let i = 0; i < mydatas.length; i++) {
+              value = value.toLowerCase()
+              
+              var name = mydatas[i].fullName.toLowerCase();
+
+              if (name.includes(value)) {
+                filtereddata.push(mydatas[i])
+
+              }
+
+            }
+
+            return filtereddata;
+
+          }   
+       
+    
+          function buildTAbledata(data1) {         
+ 
+            var temp = "";
+            data1.forEach((itemData) => {
+              temp += "<tr >";
+              temp += "<td>" + itemData.id + "</td>";
+              temp += "<td>" + `<img src=${itemData.profilePic}/>`+ "</td>";
+
+
+              // temp +=  "<td >"+ "`<img src=${item.profilePic}" />" +"</td>";
+              // temp += "<td>" +  itemData[0].firstName + "</td>";
+              temp += "<td>" + itemData.fullName + "</td>";
+              temp += "<td>" + itemData.dob + "</td>";
+              temp += "<td>" + itemData.gender + "</td>";
+              temp += "<td>" + itemData.currentCity +" "+itemData.currentCountry+ "</td></tr>";
+
+
+            });
+            document.getElementById("mytabledata").innerHTML = temp;
+
+          }
+
+
+            /*  let arr2 = mydatas.filter((items) => {
+              return items.orderStatus == "Delivered" || items.orderStatus == "New" ;
+              });
+
+          */
+ 
+
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          });
+      };
+
+      getUsers();
+
+
+    console.log(a) 
+          var a=10;
+
+      
+
+   /*    var a;
+      console.log(a)
+      a=10; */
+
+ 
+    </script>
+  </body>
+</html>

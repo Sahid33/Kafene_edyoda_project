@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Kafene Web App</title>
+
+    <style>
+      .maincontent {
+        margin-top: 100px;
+      }
+
+      .LoginPage_LoginForm__3_wtJ {
+        box-shadow: 0 0 6px #ccc;
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 32px;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        border-radius: 6px;
+      }
+
+      .LoginPage_LoginForm__3_wtJ h1 {
+        letter-spacing: 1px;
+        font-weight: 500;
+        margin: 0 0 24px;
+      }
+
+      .LoginPage_InputField__2lu1x {
+        width: 100%;
+        padding-top: 16px;
+        font-size: 14px;
+        box-sizing: border-box;
+        border: 0;
+        border-bottom: 2px solid #8c8c8c;
+        margin-bottom: 16px;
+        outline: none;
+      }
+
+      .LoginPage_Button__qkLR7 {
+        display: inline-block;
+        border-radius: 30px;
+        padding: 14px 36px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        background-color: #20b883;
+        color: #fff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        margin-top: 24px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="Topbar_Topbar">
+      <div class="Topbar_LogoWrapper">
+        <img src="./logo.58169365.png" alt="logo" />
+        <p class="Topbar_BrandName">Kafene</p>
+      </div>
+      <nav>
+        <a href="orders.html">Orders</a>
+        <a href="product.html">Products</a>
+        <a href="users.html">Users</a>
+      </nav>
+    </div>
+
+    <div class="maincontent">
+      <!--    <form class="LoginPage_LoginForm__3_wtJ" onsubmit="validate()">
+            <h1>Sign In</h1>
+            <input class="LoginPage_InputField__2lu1x" id="usernames"   name="username" placeholder="Enter Username">
+            <input class="LoginPage_InputField__2lu1x" id="passwords"   name="password" placeholder="Enter Password">
+            <input class="LoginPage_Button__qkLR7" onclick="validate()" type="submit" value="Login">
+        </form> -->
+      <form
+        id="form_id"
+        method="post"
+        class="LoginPage_LoginForm__3_wtJ"
+        name="myform"
+      >
+        <h1>Sign In</h1>
+        <input
+          class="LoginPage_InputField__2lu1x"
+          type="text"
+          name="username"
+          id="username"
+          placeholder="Enter Username"
+        />
+        <input
+          class="LoginPage_InputField__2lu1x"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Enter Password"
+        />
+        <input
+          class="LoginPage_Button__qkLR7"
+          type="button"
+          value="Login"
+          id="submit"
+          onclick="validate()"
+        />
+      </form>
+    </div>
+
+    <script>
+      function validate() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        if (username === password && username.length > 1) {
+          alert("Login Successful");
+          window.localStorage.setItem("loginStatus", "true");
+          // window.location.href = "orders.html";
+          window.location.href = "orders.html"; // Redirecting to other page.
+        } else {
+          alert("Please enter valid credentials!");
+        }
+      }
+
+      let status = window.localStorage.getItem("loginStatus");
+      if (status == "true") {
+        window.location.href = "orders.html";
+      }
+    </script>
+  </body>
+</html>

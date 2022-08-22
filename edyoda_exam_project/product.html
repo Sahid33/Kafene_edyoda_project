@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap"
+  rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+    integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+
+    #products {
+      color: #20b883;
+      border-bottom: 3px solid #20b883;
+    }
+
+    
+  </style>
+  <title>Web App</title>
+</head>
+
+<body>
+  <div class="Topbar_Topbar">
+    <div class="Topbar_LogoWrapper">
+      <img src="./logo.58169365.png" alt="logo" />
+      <p class="Topbar_BrandName">Kafene</p>
+    </div>
+    <nav>
+      <a href="orders.html">Orders</a>
+      <a href="product.html" id="products">Products</a>
+      <a href="users.html">Users</a>
+    </nav>
+    <p id="logout" onclick="logOut()">Logout</p>
+  </div>
+  
+
+  <div class="maincontainer">
+    <h1>Products</h1>
+    <div class="Homepageorders">
+      <div id="filters">
+          <p id="filtxt"><b> Filters </b></p>
+          <p id="total">Count:0</p>   
+        
+        <div>
+          <p>
+            <label class="checkbox"><input type="checkbox" name="expired"  id="expired" checked
+                onclick="getUsers()" />Expired</label>
+          </p>
+          <p>
+            <label class="checkbox"><input type="checkbox" name="lowstock" id="lowstock"  checked
+                onclick="getUsers()" />lowstock</label>
+          </p>
+        </div>
+      </div>
+
+      <table class="Homepage_OrderTable">
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Product Brand</th>
+          <th>Expiry Date</th>
+          <th>Unit Price</th>
+          <th>Stock</th>
+        </tr>
+
+        <tbody id="mytabledata">
+          <tr></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+       let status = window.localStorage.getItem("loginStatus");
+       function logOut() {
+           window.localStorage.setItem("loginStatus", "false")
+           window.location.href = "index.html";
+       }
+      function myformateddate(date) {
+            var d = new Date(date),
+                month1 = '' + (d.getMonth() + 1),
+                // month
+                day1 = '' + d.getDate(),
+                year1 = d.getFullYear();
+
+            if (month1.length < 2)
+            month1 = '0' + month1;
+            if (day1.length < 2)
+            day1 = '0' + day1;
+
+            return [year1, month1, day1].join('-');
+        }
+
+        let mydtaes = myformateddate("14-Aug-2012")
+        // console.log(mydtaes)
+
+    const getUsers = () => {
+      axios
+        .get("https://5fc1a1c9cb4d020016fe6b07.mockapi.io/api/v1/products")
+        .then(function (response) {
+          // handle success
+          var mydatas = response.data;
+          console.log(mydatas);
+
+          // filtredDataTotal2 = mydatas.filter((item) => item.unitPrice < 100);
+          // console.log(filtredDataTotal2);
+
+          let listData = mydatas;
+   
+           
+          
+          var today = new Date();
+          var dd = String(today.getDate()).padStart(2, "0");
+          var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+          var yyyy = today.getFullYear();
+          var date = yyyy + "-" + mm + "-" + dd;
+
+          console.log(date)
+
+          // console.log(date);
+
+          //Onclick Checking
+
+          // let mytabledata = mydatas;
+    
+          var expired = document.getElementById("expired").checked;
+          var lowstock = document.getElementById("lowstock").checked;
+          var finalTabledata;
+
+          console.log(expired)
+
+
+            if (expired && lowstock) {
+            document.getElementById("mytabledata").innerHTML =" ";
+            finalTabledata = mydatas.filter(
+        /*       (items) => {
+                var currentdate = myformateddate(items.expiryDate)
+                return currentdate > date;
+              } */
+              function (item) {
+                            var convertedDate = myformateddate(item.expiryDate);
+                            return convertedDate < date &&  item.stock < 100;;
+                        }
+            )
+
+            console.log(finalTabledata)
+          }
+
+          else if (expired) {
+            document.getElementById("mytabledata").innerHTML =" ";
+            finalTabledata = mydatas.filter(
+        /*       (items) => {
+                var currentdate = myformateddate(items.expiryDate)
+                return currentdate > date;
+              } */
+              function (item) {
+                            var convertedDate = myformateddate(item.expiryDate);
+                            return convertedDate < date ;
+                        }
+            )
+
+            console.log(finalTabledata)
+          }
+
+
+          else if (lowstock) {
+            document.getElementById("mytabledata").innerHTML = " ";
+            finalTabledata = mydatas.filter(
+           /*    (items) => {
+                var convertedDate = myformateddate(items.expiryDate);
+              return items.stock < 100;
+              } */
+              function (item) {
+                            var convertedDate = myformateddate(item.expiryDate);
+                            return item.stock < 100;
+                        }
+            )
+            console.log(finalTabledata)
+
+          }
+
+          else {
+            finalTabledata = mydatas;
+          }
+
+          console.log("finalTabledata",finalTabledata,finalTabledata)
+          var temp ="";
+          finalTabledata.forEach((itemData) => {
+            temp += "<tr >";
+            temp += "<td>" + itemData.id + "</td>";
+            temp += "<td>" + itemData.medicineName + "</td>";
+            temp += "<td>" + itemData.medicineBrand + "</td>";
+            temp += "<td>" + itemData.expiryDate + "</td>";
+            temp += "<td>" + itemData.unitPrice + "</td>";
+            temp += "<td>" + itemData.stock + "</td></tr>";
+          });
+
+          document.getElementById("mytabledata").innerHTML = temp;
+
+                let total1;
+                total1 = finalTabledata.length;
+                let mycount1 = document.getElementById("total");
+                mycount1.innerHTML =`Count: ${total1}`;
+    
+                console.log(finalTabledata.length);  
+        });
+    };
+    getUsers();
+
+  </script>  
+
+ 
+ 
+</body>
+
+</html>
